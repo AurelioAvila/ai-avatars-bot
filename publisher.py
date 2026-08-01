@@ -47,6 +47,39 @@ GITHUB_API_BASE = "https://api.github.com"
 GITHUB_UPLOAD_BASE = "https://uploads.github.com"
 
 
+def _notify_telegram(video_path: str, caption: str) -> None:
+    """Manda la caption pronta su Telegram appena il video finisce in bozza -
+    l'endpoint bozze non la accetta via API, quindi senza questo bisognerebbe
+    andarla a cercare a mano sul PC mentre si pubblica dal telefono. Stesso
+    schema gia' usato per gli altri 5 account, numerazione progressiva propria
+    (Maddie) cosi' non si mischia con gli altri contatori."""
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+    if not token or not chat_id:
+        return
+    counter_path = Path(__file__).parent / "output" / "telegram_notify_counter.json"
+    n = 0
+    if counter_path.exists():
+        n = json.loads(counter_path.read_text()).get("n", 0)
+    n += 1
+    counter_path.write_text(json.dumps({"n": n}))
+
+    video_name = os.path.basename(video_path)
+    try:
+        requests.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            data={"chat_id": chat_id, "text": f"🎬 Maddie #{n} — {video_name}"},
+            timeout=15,
+        )
+        requests.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            data={"chat_id": chat_id, "text": caption},
+            timeout=15,
+        )
+    except Exception as exc:
+        print(f"[WARN] Notifica Telegram fallita per {video_name}: {exc}")
+
+
 def _require_env(*names):
     missing = [n for n in names if not os.environ.get(n)]
     if missing:
@@ -228,6 +261,7 @@ def publish_tiktok(video_path: str, caption: str) -> str:
     ).raise_for_status()
 
     print(f"[OK] TikTok inviato nelle bozze: publish_id={publish_id}")
+    _notify_telegram(video_path, caption)
     return publish_id
 
 

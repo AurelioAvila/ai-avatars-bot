@@ -102,14 +102,19 @@ def assemble_video(avatar_video_path, word_boundaries_path, script_path, config,
     resolution = config["video"]["resolution"]
     output_path = final_dir / f"{video_id}.mp4"
 
-    ass_path_escaped = str(ass_path).replace("\\", "/").replace(":", "\\:")
-    fonts_dir = str((Path(__file__).parent / "assets" / "fonts")).replace("\\", "/").replace(":", "\\:")
+    # ffmpeg-python double-escapes a filter's *positional* argument (adds
+    # extra backslashes on top of its own colon-escaping), which breaks on
+    # this project's folder path ("AI Avatars Bot" - both a space and a
+    # drive-letter colon). Passing it as the "filename" keyword instead goes
+    # through the normal single-escaping path and works correctly.
+    ass_path_str = str(ass_path).replace("\\", "/")
+    fonts_dir = str(Path(__file__).parent / "assets" / "fonts").replace("\\", "/")
 
     (
         ffmpeg.input(str(avatar_video_path))
         .filter("scale", resolution[0], resolution[1], force_original_aspect_ratio="decrease")
         .filter("pad", resolution[0], resolution[1], "(ow-iw)/2", "(oh-ih)/2", color=config["branding"]["frame_color"])
-        .filter("subtitles", ass_path_escaped, fontsdir=fonts_dir)
+        .filter("subtitles", filename=ass_path_str, fontsdir=fonts_dir)
         .output(str(output_path), vcodec="libx264", acodec="aac", pix_fmt="yuv420p", movflags="faststart")
         .overwrite_output()
         .run(quiet=True)

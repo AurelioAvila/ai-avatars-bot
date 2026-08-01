@@ -1,0 +1,39 @@
+.env
+credentials.json
+token.json
+token.pickle
+*.pyc
+__pycache__/
+.venv/
+venv/
+
+output/audio/*.mp3
+output/audio/*.json
+output/final/*.mp4
+output/scripts/*.json
+!output/scripts/.gitkeep
+!output/audio/.gitkeep
+!output/final/.gitkeep
+
+assets/avatar.png
+assets/*.jpg
+assets/*.jpeg
+assets/avatar_*_Easy-Wav2Lip.mp4
+
+# Local lip-sync engine: cloned third-party repo (its own .git, several GB
+# of model weights once installed) + its own Python 3.10 venv - none of this
+# belongs in this project's own git history, it's fetched via
+# `git clone https://github.com/anothermartz/Easy-Wav2Lip.git lipsync_engine`
+# + `python install.py` per lipsync_local.py's docstring instead.
+lipsync_venv/
+lipsync_engine/
+
+# Test/scratch outputs from local runs, not real content
+output/final/*.ass
+output/final/*_metadata.json
+output/scripts/*.json
+output/audio/*.mp3
+output/audio/*.json
+
+.DS_Store
+Thumbs.db
