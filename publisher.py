@@ -273,7 +273,7 @@ def publish(video_path, metadata_path, skip_youtube=False, skip_instagram=False,
     with open(metadata_path, "r", encoding="utf-8") as f:
         metadata = json.load(f)
 
-    caption = metadata["caption"] + "\n\n" + " ".join(f"#{h}" for h in metadata["hashtags"])
+    caption = metadata["caption"] + "\n\n" + " ".join(metadata["hashtags"])
     results = {}
 
     if not skip_youtube:
