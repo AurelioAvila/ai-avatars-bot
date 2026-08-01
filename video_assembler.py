@@ -110,12 +110,22 @@ def assemble_video(avatar_video_path, word_boundaries_path, script_path, config,
     ass_path_str = str(ass_path).replace("\\", "/")
     fonts_dir = str(Path(__file__).parent / "assets" / "fonts").replace("\\", "/")
 
-    (
-        ffmpeg.input(str(avatar_video_path))
+    # A chain of only .filter() calls carries the VIDEO stream alone into
+    # .output() - the source's audio track was never pulled into the graph,
+    # so it silently got dropped from every rendered video (confirmed live
+    # 2026-08-01: bozze arrivavano mute). Grab the same input's .audio
+    # explicitly and pass both streams to output().
+    input_stream = ffmpeg.input(str(avatar_video_path))
+    video = (
+        input_stream.video
         .filter("scale", resolution[0], resolution[1], force_original_aspect_ratio="decrease")
         .filter("pad", resolution[0], resolution[1], "(ow-iw)/2", "(oh-ih)/2", color=config["branding"]["frame_color"])
         .filter("subtitles", filename=ass_path_str, fontsdir=fonts_dir)
-        .output(str(output_path), vcodec="libx264", acodec="aac", pix_fmt="yuv420p", movflags="faststart")
+    )
+    audio = input_stream.audio
+
+    (
+        ffmpeg.output(video, audio, str(output_path), vcodec="libx264", acodec="aac", pix_fmt="yuv420p", movflags="faststart")
         .overwrite_output()
         .run(quiet=True)
     )
