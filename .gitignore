@@ -35,5 +35,10 @@ output/scripts/*.json
 output/audio/*.mp3
 output/audio/*.json
 
+# Contains real Telegram/TikTok credentials set inline (Scheduled Task
+# processes don't reliably see Windows user env vars without a logoff/logon,
+# see lipsync_local.py commit history) - never belongs in a public repo.
+run_daily.bat
+
 .DS_Store
 Thumbs.db
