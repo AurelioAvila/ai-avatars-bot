@@ -1,6 +1,9 @@
 import argparse
 from pathlib import Path
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from lipsync_local import generate_avatar_video
 from publisher import publish
 from script_generator import generate_script, save_script, load_config as load_script_config

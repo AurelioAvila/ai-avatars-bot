@@ -36,7 +36,12 @@ Pick any one of these, all free:
 ## After generating
 
 1. Download the image.
-2. Save it locally as `assets/avatar.png` in this project.
-3. Also upload a copy to the Drive `AIAvatarsBot_Inbox` folder as `avatar.png` (the Colab notebook reads it from there) - see README.md for the Drive folder setup.
+2. Save it locally as `assets/avatar.png` in this project (overwrite the existing one if swapping it).
+3. **If you're replacing an existing avatar.png with a new photo** (not the first-ever setup): the lip-sync engine caches face-tracking data keyed by filename, not content - since the filename stays `avatar.png`, it will otherwise paste the OLD face's tracking data onto the NEW photo (a visible ghosting/frankenstein artifact, confirmed live 2026-08-02). Delete these two files before the next run so it re-detects the face fresh:
+   ```
+   lipsync_engine/last_detected_face.pkl
+   lipsync_engine/last_file.txt
+   ```
+   (Also delete `lipsync_engine/temp/` if present.) `lipsync_local.py` runs this pipeline locally now (see README.md) - the old Colab/Drive setup below is obsolete.
 
-This is a one-time task. Re-do it only if you want to change the channel's on-screen persona.
+This is a one-time task. Re-do it only if you want to change the channel's on-screen persona - and remember step 3 when you do.
