@@ -94,14 +94,18 @@ CTAS = [
 ]
 
 HASHTAGS = {
-    "cert_study_grind": ["#itcertification", "#studywithme", "#collegehustle", "#certsprint"],
+    "cert_study_grind": ["#itcertification", "#studywithme", "#certsprint"],
     "budget_laptop_and_tech": ["#techtok", "#laptoptips", "#budgettech", "#collegelife"],
     "scout_and_pet_life": ["#dogsoftiktok", "#rescuedog", "#petlife", "#collegepet"],
-    "freelance_and_side_income": ["#sidehustle", "#freelancer", "#makemoneyonline", "#collegehustle"],
+    "freelance_and_side_income": ["#sidehustle", "#freelancer", "#makemoneyonline"],
     "college_money_reality": ["#collegebudget", "#personalfinance", "#brokecollegestudent", "#moneytips"],
     "productivity_and_time": ["#productivity", "#studytok", "#timemanagement", "#collegelife"],
 }
 
+# "#collegehustle" gia' coperto da COMMON_HASHTAGS - rimosso dai due pool per
+# categoria che lo includevano perche' generava un duplicato nella caption
+# finale (es. "#collegehustle ... #collegehustle" - trovato live 2026-08-01
+# sul primo video reale pubblicato).
 COMMON_HASHTAGS = ["#thelog", "#collegehustle", "#shorts"]
 
 # Natural, non-ad-read ways to weave a sponsor mention into a beat, keyed by sponsor id.
