@@ -1,0 +1,83 @@
+niche: "persona_driven_college_hustle"
+tone: "blunt, warm, first-person, Gen-Z college voice narrating her own ongoing story, no-fluff, no listicle framing"
+
+persona:
+  name: "Maddie Ross"
+  age: 19
+  bio_summary: >
+    19-year-old college junior studying Information Systems/Cybersecurity, documenting
+    her broke-to-built college hustle era: IT certifications, freelance IT work, budget
+    laptop fixes, and life with her rescue dog Scout. See persona.md for the full bible.
+  pet_name: "Scout"
+  content_log_name: "the log"
+
+video:
+  target_seconds_min: 30
+  target_seconds_max: 60
+  aspect_ratio: "9:16"
+  resolution: [1080, 1920]
+
+tts:
+  voice: "en-US-AriaNeural"
+  rate: "+2%"
+  pitch: "+0Hz"
+
+script:
+  tips_per_video: 4
+  hook_styles:
+    - "first_person_consequence"
+    - "contrarian_claim"
+    - "specific_number_result"
+  categories:
+    - "cert_study_grind"
+    - "budget_laptop_and_tech"
+    - "scout_and_pet_life"
+    - "freelance_and_side_income"
+    - "college_money_reality"
+    - "productivity_and_time"
+
+sponsors:
+  certsprint:
+    name: "CertSprint"
+    url: "https://getcertsprint.com"
+    audience: "students studying for IT certifications, backup-career/quiz-prep angle"
+    pillar: "cert_study_grind"
+    weight: 1
+  pc_tweaker:
+    name: "PC Tweaker"
+    url: "TODO_pc_tweaker_url"  # fill in actual PC Tweaker product/checkout URL
+    audience: "students with old/budget laptops struggling during finals or gaming"
+    pillar: "budget_laptop_and_tech"
+    weight: 1
+  groomlyco:
+    name: "Groomlyco"
+    url: "TODO_groomlyco_shopify_url"  # fill in actual Groomlyco storefront URL
+    audience: "budget pet owners in small apartments, via Scout content"
+    pillar: "scout_and_pet_life"
+    weight: 1
+  magdock:
+    name: "Magdock"
+    url: "TODO_magdock_shopify_url"  # fill in actual Magdock storefront URL
+    audience: "tech-curious college audience wanting gadgets that survive daily campus use"
+    pillar: "budget_laptop_and_tech"
+    weight: 1
+  sponsor_video_ratio: 0.2
+
+captions:
+  font: "Poppins ExtraBold"  # bundled in assets/fonts/, stesso standard di tutti gli altri account
+  font_size: 72
+  color: "white"
+  highlight_color: "yellow"
+  position: "center_lower_third"
+
+branding:
+  frame_color: "#0B0F1A"
+  accent_color: "#F5C518"
+
+paths:
+  scripts_dir: "output/scripts"
+  audio_dir: "output/audio"
+  final_dir: "output/final"
+  avatar_image: "assets/avatar.png"
+  drive_inbox_folder_name: "AIAvatarsBot_Inbox"
+  drive_outbox_folder_name: "AIAvatarsBot_Outbox"
